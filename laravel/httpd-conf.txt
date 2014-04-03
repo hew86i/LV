@@ -1,0 +1,11 @@
+Alias /laravel "C:/xampp/htdocs/LV/laravel/public"
+
+<Directory "C:/xampp/htdocs/LV/laravel/public">
+    Options Indexes FollowSymLinks Includes ExecCGI
+    AllowOverride All
+    Order allow,deny
+    Allow from all
+</Directory>
+
+# -------------------------------------------------------
+# then add  RewriteBase /laravel to .htaccess on index page
