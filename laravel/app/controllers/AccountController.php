@@ -2,6 +2,48 @@
 
 class AccountController extends BaseController {
 
+	public function getSignIn() {
+		return View::make('account.signin');
+	}
+
+	public function postSignIn() {
+		$validator = Validator::make(Input::all(),
+			array(
+				'email' 	=> 'required',
+				'password' 	=> 'required'				
+			)
+
+		);
+
+		
+		if($validator->fails()) {
+			//redirect to sign in page
+			return Redirect::route('account-sign-in')
+					->withErrors($validator)
+					->withInput();
+		} else {
+			// attemp user sign in
+			$auth = Auth::attempt(array(
+				'email' => Input::get('email'),
+				'password' => Input::get('password'),
+				'active' => 1
+			));
+
+			if($auth) {
+				//redirect to intended page
+				return Redirect::intended('/');
+			} else {
+				return Redirect::route('account-sign-in')
+				->with('global', 'Email/password wrong, or account not activated.');
+			}
+		}
+
+		return Redirect::route('account-sign-in')
+				->with('global', 'There was a problem signing you in.');
+
+	}
+
+
 	public function getCreate() {
 		return View::make('account.create');
 	}

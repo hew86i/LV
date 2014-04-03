@@ -44,8 +44,25 @@ Route::group(array('before' => 'guest'), function() {
 			'as' => 'account-create-post',
 			'uses' => 'AccountController@postCreate'));
 
+		/* ---------------------------------------------
+		/          Sign in (POST) 
+		-----------------------------------------------*/
+
+		Route::post('/account/sign-in', array(
+			'as' => 'account-sign-in-post',
+			'uses' => 'AccountController@postSignIn'));
+
 
 	});
+
+
+	/* ---------------------------------------------
+	/          Sign in (GET) 
+	-----------------------------------------------*/
+
+	Route::get('/account/sign-in', array(
+		'as' => 'account-sign-in',
+		'uses' => 'AccountController@getSignIn'));
 
 	/* ---------------------------------------------
 	/          Create account (GET) 
