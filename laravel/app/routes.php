@@ -26,6 +26,15 @@ Route::get('/', array(
 
 ));
 
+/*===========================================
+=            Handles bad routing            =
+===========================================*/
+
+App::missing(function($exception)
+{	
+	return Redirect::route('home')->with('global','Sorry, bad url request...');
+});
+
 
 /*===========================================
 =            Authenticated group            =
