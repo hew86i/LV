@@ -16,57 +16,90 @@
 // 	return View::make('hello');
 // });
 
+
+/*======================================
+=            Route to home             =
+======================================*/
 Route::get('/', array(
 	'as' => 'home',
 	'uses' => 'HomeController@home'
 
 ));
 
-// Route::get('foo', 'HomeController@home');
 
-/* ---------------------------------------------
-/          Unauthenticated group
------------------------------------------------*/
+/*===========================================
+=            Authenticated group            =
+===========================================*/
+
+Route::group(array('before' => 'auth'), function() {
+
+	/*=================================
+	=            Sign out (GET)       =
+	=================================*/
+
+	Route::get('/account/sign-out', array(
+		'as' => 'account-sign-out',
+		'uses' => 'AccountController@getSignOut'
+	));
+	
+	
+	
+	
+
+
+});
+
+
+/*-----  End of Authenticated group  ------*/
+
+
+
+
+
+/*=============================================
+=            Unauthenticated gorup            =
+=============================================*/
 
 Route::group(array('before' => 'guest'), function() {
 
-	/* ---------------------------------------------
-	/          CSRF protection group
-	-----------------------------------------------*/
-
+	/*==================================
+	=            CSRF group            =
+	==================================*/
+	
 	Route::group(array('before' => 'csrf'), function() {
 
-		/* ---------------------------------------------
-		/          Create account (POST) 
-		-----------------------------------------------*/
+		/*=============================================
+		=            Create account (POST)            =
+		=============================================*/		
 
 		Route::post('/account/create', array(
 			'as' => 'account-create-post',
 			'uses' => 'AccountController@postCreate'));
 
-		/* ---------------------------------------------
-		/          Sign in (POST) 
-		-----------------------------------------------*/
+		/*========================================
+		=             Sign in (POST)             =
+		========================================*/		
 
 		Route::post('/account/sign-in', array(
 			'as' => 'account-sign-in-post',
 			'uses' => 'AccountController@postSignIn'));
 
-
 	});
+	
+	/*-----  End of CSRF group  ------*/
 
-
-	/* ---------------------------------------------
-	/          Sign in (GET) 
-	-----------------------------------------------*/
+	
+	/*======================================
+	=            Sign in (GET)             =
+	======================================*/
 
 	Route::get('/account/sign-in', array(
 		'as' => 'account-sign-in',
 		'uses' => 'AccountController@getSignIn'));
 
-	/* ---------------------------------------------
-	/          Create account (GET) 
-	-----------------------------------------------*/
+	/*=============================================
+	=            Create account (GET)             =
+	=============================================*/	
 
 	Route::get('/account/create', array(
 		'as' => 'account-create',
@@ -75,9 +108,16 @@ Route::group(array('before' => 'guest'), function() {
 	Route::get('/account/activate/{code}', array(
 		'as' => 'account-activate',
 		'uses' => 'AccountController@getActivate'
-
-
 	));
 
+
 });
+
+
+/*-----  End of Unauthenticated gorup  ------*/
+
+
+
+
+
 
