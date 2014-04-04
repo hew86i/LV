@@ -33,6 +33,28 @@ Route::get('/', array(
 
 Route::group(array('before' => 'auth'), function() {
 
+	/*==================================
+	=            CSRF group            =
+	==================================*/
+	
+	Route::group(array('before' => 'csrf'), function(){
+
+		/*=================================
+		=            Sign out (POST)       =
+		=================================*/
+
+    	Route::post('/account/change-password', array(
+		'as' => 'account-change-password-post',
+		'uses' => 'AccountController@postChangePassword'		
+		));
+
+
+	}); 
+
+	/*-----  End of CSRF group  ------*/
+
+	
+
 	/*=================================
 	=            Sign out (GET)       =
 	=================================*/
@@ -42,10 +64,14 @@ Route::group(array('before' => 'auth'), function() {
 		'uses' => 'AccountController@getSignOut'
 	));
 	
-	
-	
-	
+	/*========================================
+	=            Change password (GET)       =	
+	========================================*/
 
+	Route::get('/account/change-password', array(
+		'as' => 'account-change-password',
+		'uses' => 'AccountController@getChangePassword'		
+	));
 
 });
 

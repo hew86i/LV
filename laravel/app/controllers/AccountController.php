@@ -23,11 +23,14 @@ class AccountController extends BaseController {
 					->withInput();
 		} else {
 			// attemp user sign in
+			
+			$remember = (Input::has('remember')) ? true : false;
+
 			$auth = Auth::attempt(array(
 				'email' => Input::get('email'),
 				'password' => Input::get('password'),
 				'active' => 1
-			));
+			), $remember);
 
 			if($auth) {
 				//redirect to intended page
@@ -122,4 +125,49 @@ class AccountController extends BaseController {
 		return Redirect::route('home')
 				->with('global', 'We could not activate your account. Try again later.');
 	}
+
+	public function getChangePassword() {
+		return View::make('account.password')
+					->with('var', 'Hi '. Auth::user()->username .' ,change your password');
+	}
+
+	public function postChangePassword() {
+		$validator = Validator::make(Input::all(), 
+			array(
+				'old_password' 		=> 'required|',
+				'password'			=> 'required|min:6',
+				'password_again' 	=> 'required|same:password'
+			)
+		);
+
+		if($validator->fails()) {
+			// redirect
+			return Redirect::route('account-change-password')
+					->withErrors($validator);
+		} else {
+			// change password
+			$user = User::find(Auth::user()->id);
+
+			$old_password 	= Input::get('old_password');
+			$password 		= Input::get('password');
+
+			if(Hash::check($old_password, $user->getAuthPassword())){
+				
+				$user->password = Hash::make($password);
+
+				if($user->save()) {
+					return Redirect::route('home')->with('global', 'Your password has been changed!');
+				}
+
+			} else {
+				return Redirect::route('account-change-password')->with('global', 'Your old password is incorrect!');
+			}
+
+		}
+
+		return Redirect::route('account-change-password')
+				->with('global', 'Your password could not be chaned');
+
+	}
+
 }

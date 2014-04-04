@@ -33,7 +33,15 @@
 										{{ $errors->first('password') }}
 									@endif
 								</label>
-							</div>							
+							</div>
+
+							<div class="form-group">
+								<div class="checkbox col-sm-offset-2">
+							    <label>
+							      <input type="checkbox" name="remember" id="remember"> Remember me
+							    </label>
+							 </div>
+							</div>					
 							
 							<div class="form-group">
 								<div class="col-sm-offset-2 col-sm-4">

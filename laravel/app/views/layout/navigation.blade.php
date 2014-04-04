@@ -4,6 +4,7 @@
 
 		@if(Auth::check())
 			<li><a href="{{ URL::Route('account-sign-out') }}">Sign out</a></li>
+			<li><a href="{{ URL::Route('account-change-password') }}">Change Password</a></li>
 		@else
 			<li><a href="{{ URL::Route('account-sign-in') }}">Sign in</a></li>
 			<li><a href="{{ URL::Route('account-create') }}">Create Account</a></li>
