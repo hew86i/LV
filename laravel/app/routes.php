@@ -36,6 +36,12 @@ App::missing(function($exception)
 });
 
 
+Route::get('/user/{username}', array(
+	'as' => 'profile-user',
+	'uses' => 'ProfileController@user'
+));
+
+
 /*===========================================
 =            Authenticated group            =
 ===========================================*/
