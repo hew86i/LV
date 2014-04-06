@@ -7,14 +7,14 @@
 <div class="row">
 	<div class="col-sm-10">
 		<fieldset class="sign_in">
-				<legend class="legend_create"><h1>Sign in</h1></legend>
+				<legend class="legend_create"><h2>Sign in</h2></legend>
 
 					<form class="form-horizontal" action="{{ URL::route('account-sign-in-post') }}" method="post" role="role">
 
 							<div class="form-group">
 								<label for="email" class="col-sm-2 control-label">Email</label>
 								<div class="col-sm-5">
-									<input type="email" class="form-control" id="email" name="email" placeholder="Email"{{ (Input::old('email')) ? ' value="' . e(Input::old('email')) . '"' : '' }}>
+									<input type="email" class="form-control" id="email" name="email" placeholder="Email"{{ (Input::old('email')) ? ' value="' . e(Input::old('email')) . '"' : '' }} autofocus>
 								</div>
 								<label for="email" class="control-label">
 									@if($errors->has('email'))
@@ -37,8 +37,11 @@
 
 							<div class="form-group">
 								<div class="checkbox col-sm-offset-2">
-							    <label>
-							      <input type="checkbox" name="remember" id="remember"> Remember me
+							    <label for="remember">
+							    Remember me <input type="checkbox" name="remember" id="remember"></label>
+							     <!--  <input type="checkbox" name="remember" id="remember"> Remember me --> 
+							    <label for="forget" class="col-sm-offset-1">
+							    	<a href="{{ URL::Route('account-forgot-password') }}">Forget your password?</a>
 							    </label>
 							 </div>
 							</div>					

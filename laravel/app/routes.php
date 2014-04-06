@@ -125,9 +125,38 @@ Route::group(array('before' => 'guest'), function() {
 			'as' => 'account-sign-in-post',
 			'uses' => 'AccountController@postSignIn'));
 
+		/*=========================================
+		=            Forget password (POST)       =
+		=========================================*/
+
+		Route::post('/account/forgot-password', array(
+			'as' => 'account-forgot-password-post',
+			'uses' => 'AccountController@postForgotPassword'
+		));	
+
+
 	});
 	
 	/*-----  End of CSRF group  ------*/
+
+
+	/*=========================================
+	=            Forget password (GET)       =
+	=========================================*/
+
+	Route::get('/account/forgot-password', array(
+		'as' => 'account-forgot-password',
+		'uses' => 'AccountController@getForgotPassword'
+	));	
+
+	/*=========================================
+	=            Recover password (GET)       =
+	=========================================*/
+
+	Route::get('/account/recover/{code}', array(
+		'as' => 'account-recover',
+		'uses' => 'AccountController@getRecover'
+	));
 
 	
 	/*======================================

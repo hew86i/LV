@@ -15,7 +15,7 @@
 							<div class="form-group">
 								<label for="email" class="col-sm-2 control-label">Email</label>
 								<div class="col-sm-5">
-									<input type="email" class="form-control" id="email" name="email" placeholder="Email"{{ (Input::old('email')) ? ' value="' . e(Input::old('email')) . '"' : '' }}>
+									<input type="email" class="form-control" id="email" name="email" placeholder="Email"{{ (Input::old('email')) ? ' value="' . e(Input::old('email')) . '"' : '' }} autofocus>
 								</div>
 								<label for="email" class="control-label">
 									@if($errors->has('email'))
